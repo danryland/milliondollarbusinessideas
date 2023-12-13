@@ -5,7 +5,8 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-h1 {
+h1,
+.q-btn {
   font-family: "Syne", sans-serif;
 }
 
@@ -28,6 +29,9 @@ h1 {
 
 .q-page {
   h1 {
+    font-size: 48px;
+    line-height: 48px;
+    font-weight: 700;
     margin-bottom: 24px;
     .top {
       background: linear-gradient(180deg, #747474 30%, #000 80%);
@@ -42,7 +46,7 @@ h1 {
       -webkit-text-fill-color: transparent;
     }
   }
-  p {
+  .small {
     font-size: 18px;
     line-height: 1.4em;
     color: #626262;
@@ -50,4 +54,27 @@ h1 {
       color: #626262;
     }
   }
+}
+
+.q-btn--rounded {
+  border-radius: 50px;
+}
+
+.q-field {
+  font-size: 18px;
+}
+
+.q-field--outlined .q-field__control {
+  padding: 0px 24px !important;
+}
+
+.q-icon:before {
+  top: -2px;
+  position: relative;
+}
+
+.q-form {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }

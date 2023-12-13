@@ -1,12 +1,64 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="text-center q-pa-lg">
+    <div class="text-center q-pa-md">
       <h1>
         <span class="top">Build in a weekend</span><br /><span class="bottom"
           >Make millions</span
         >
       </h1>
-      <p>
+      <q-form class="q-my-xl">
+        <!-- <p class="text-h5 text-weight-bold">Start with an interest:</p> -->
+        <q-input
+          v-model="input"
+          debounce="1000"
+          outlined
+          rounded
+          class="q-mb-lg"
+          placeholder="An interest eg Drumming"
+        >
+          <template v-slot:append>
+            <div v-if="input">
+              <div v-if="isDirty">
+                <q-icon
+                  color="red-8"
+                  name="fa-regular fa-face-eyes-xmarks"
+                  size="24px"
+                />
+              </div>
+              <div v-else>
+                <q-icon color="green" name="fa-solid fa-check" size="24px" />
+              </div>
+            </div>
+          </template>
+        </q-input>
+        <div class="flex flex-center q-gutter-md">
+          <q-btn
+            :loading="isLoading"
+            size="xl"
+            color="primary"
+            text-color="dark"
+            rounded
+            class="q-px-lg"
+            no-caps
+            label="Submit"
+            unelevated
+            :disable="input && isDirty"
+            @click="showAlert"
+          />
+          <q-btn
+            size="xl"
+            color="primary"
+            text-color="dark"
+            rounded
+            class="q-px-lg"
+            no-caps
+            label="Suprise me"
+            unelevated
+            @click="showAlert"
+          />
+        </div>
+      </q-form>
+      <p class="small">
         An
         <a
           href="https://github.com/danryland/milliondollarbusinessideas"
@@ -24,9 +76,43 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { ref, watch } from "vue";
+// import { pipeline } from "@xenova/transformers";
+import { pipeline } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.11.0";
 
-export default defineComponent({
+export default {
   name: "IndexPage",
-});
+  setup() {
+    const isLoading = ref(false);
+    const input = ref(null);
+    const isDirty = ref(false);
+
+    const showAlert = () => {
+      window.alert("Coming soon");
+    };
+
+    const classifyInput = async (value) => {
+      isDirty.value = false;
+      isLoading.value = true;
+      let classifier = await pipeline(
+        "text-classification",
+        "Xenova/toxic-bert"
+      );
+      let results = await classifier(value, { topk: null });
+      isDirty.value = results.some((result) => result.score > 0.5);
+      isLoading.value = false;
+    };
+
+    watch(input, (value) => {
+      classifyInput(value);
+    });
+
+    return {
+      isLoading,
+      isDirty,
+      input,
+      showAlert,
+    };
+  },
+};
 </script>
