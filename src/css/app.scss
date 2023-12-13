@@ -1,1 +1,52 @@
 // app global css in SCSS form
+
+body {
+  background-color: #f4f3f4;
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  font-family: "Syne", sans-serif;
+}
+
+.q-header {
+  margin: 16px;
+  border-radius: 8px;
+  background-color: white;
+  display: flex;
+  .logo {
+    padding: 16px;
+    border-right: 1px solid #f4f3f4;
+    img {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
+  }
+}
+
+.q-page {
+  h1 {
+    margin-bottom: 24px;
+    .top {
+      background: linear-gradient(180deg, #747474 30%, #000 80%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bottom {
+      background: linear-gradient(180deg, #ffc63a 30%, #be8700 80%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  p {
+    font-size: 18px;
+    line-height: 1.4em;
+    color: #626262;
+    a {
+      color: #626262;
+    }
+  }
+}
