@@ -33,6 +33,18 @@
         </q-input>
         <div class="flex flex-center q-gutter-md">
           <q-btn
+            size="xl"
+            color="primary"
+            outline
+            text-color="dark"
+            rounded
+            class="q-px-lg"
+            no-caps
+            label="Random"
+            unelevated
+            @click="showAlert"
+          />
+          <q-btn
             :loading="isLoading"
             size="xl"
             color="primary"
@@ -43,17 +55,6 @@
             label="Submit"
             unelevated
             :disable="input && isDirty"
-            @click="showAlert"
-          />
-          <q-btn
-            size="xl"
-            color="primary"
-            text-color="dark"
-            rounded
-            class="q-px-lg"
-            no-caps
-            label="Suprise me"
-            unelevated
             @click="showAlert"
           />
         </div>
