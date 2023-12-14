@@ -11,10 +11,10 @@
         <q-input
           v-model="input"
           debounce="1000"
-          outlined
+          standout
           rounded
           class="q-mb-lg"
-          placeholder="An interest eg Drumming"
+          placeholder="Your interest"
         >
           <template v-slot:append>
             <div v-if="input">
@@ -31,32 +31,34 @@
             </div>
           </template>
         </q-input>
-        <div class="flex flex-center q-gutter-md">
-          <q-btn
-            size="xl"
-            color="primary"
-            outline
-            text-color="dark"
-            rounded
-            class="q-px-lg"
-            no-caps
-            label="Random"
-            unelevated
-            @click="showAlert"
-          />
-          <q-btn
-            :loading="isLoading"
-            size="xl"
-            color="primary"
-            text-color="dark"
-            rounded
-            class="q-px-lg"
-            no-caps
-            label="Submit"
-            unelevated
-            :disable="input && isDirty"
-            @click="showAlert"
-          />
+        <div class="flex flex-center">
+          <div class="q-gutter-md">
+            <q-btn
+              size="xl"
+              color="primary"
+              outline
+              text-color="dark"
+              rounded
+              class="q-px-lg"
+              no-caps
+              label="Random"
+              unelevated
+              @click="showAlert"
+            />
+            <q-btn
+              :loading="isLoading"
+              size="xl"
+              color="primary"
+              text-color="dark"
+              rounded
+              class="q-px-lg"
+              no-caps
+              label="Bespoke"
+              unelevated
+              :disable="input && isDirty"
+              @click="showAlert"
+            />
+          </div>
         </div>
       </q-form>
       <p class="small">
