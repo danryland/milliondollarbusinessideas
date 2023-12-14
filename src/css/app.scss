@@ -32,6 +32,10 @@ h1,
     font-size: 48px;
     line-height: 48px;
     font-weight: 700;
+    @media (min-width: 1024px) {
+      font-size: 80px;
+      line-height: 80px;
+    }
     margin-bottom: 24px;
     .top {
       background: linear-gradient(180deg, #747474 30%, #000 80%);
