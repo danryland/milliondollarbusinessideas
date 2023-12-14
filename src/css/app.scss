@@ -28,7 +28,7 @@ h1,
 }
 
 .q-page {
-  h1 {
+  .text-h1 {
     font-size: 48px;
     line-height: 48px;
     font-weight: 700;
@@ -72,7 +72,7 @@ h1,
   padding: 0px 24px !important;
 }
 
-.q-icon:before {
+.custom-icon.q-icon:before {
   top: -2px;
   position: relative;
 }
@@ -81,4 +81,49 @@ h1,
   max-width: 342px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.note {
+  font-family: "Caveat";
+  max-width: 400px;
+  height: 400px;
+  font-size: 40px;
+  line-height: 40px;
+  &.note-1 {
+    background-color: #ffd92f;
+    transform: rotate(1deg);
+  }
+  &.note-2 {
+    background-color: #48daf3;
+    transform: rotate(2deg);
+  }
+  &.note-3 {
+    background-color: #61e39d;
+    transform: rotate(-1deg);
+  }
+  &.note-4 {
+    background-color: #ffc15f;
+    transform: rotate(-2deg);
+  }
+  &.note-5 {
+    background-color: #ffab9f;
+    transform: rotate(3deg);
+  }
+  &.note-6 {
+    background-color: #66ccff;
+    transform: rotate(-3deg);
+  }
+  &.note-7 {
+    background-color: #e0b6ff;
+    transform: rotate(1deg);
+  }
+  &.note-8 {
+    background-color: #ffbaf5;
+    transform: rotate(-1deg);
+  }
+  .q-card__section {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 }

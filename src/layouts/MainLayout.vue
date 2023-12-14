@@ -2,10 +2,12 @@
   <q-layout view="lHh Lpr lFf">
     <q-header class="bg-white text-dark">
       <div class="logo">
-        <img
-          alt="Million Dollar Business Ideas"
-          src="~assets/img/logo-million-dollar-business-ideas.svg"
-        />
+        <router-link to="/">
+          <img
+            alt="Million Dollar Business Ideas"
+            src="~assets/img/logo-million-dollar-business-ideas.svg"
+          />
+        </router-link>
       </div>
     </q-header>
 

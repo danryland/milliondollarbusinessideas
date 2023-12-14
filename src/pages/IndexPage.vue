@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div class="text-center q-pa-md">
-      <h1>
+      <h1 class="text-h1">
         <span class="top">Build in a weekend</span><br /><span class="bottom"
           >Make millions</span
         >
@@ -20,13 +20,19 @@
             <div v-if="input">
               <div v-if="isDirty">
                 <q-icon
+                  class="custom-icon"
                   color="red-8"
                   name="fa-regular fa-face-eyes-xmarks"
                   size="24px"
                 />
               </div>
               <div v-else>
-                <q-icon color="green" name="fa-solid fa-check" size="24px" />
+                <q-icon
+                  class="custom-icon"
+                  color="green"
+                  name="fa-solid fa-check"
+                  size="24px"
+                />
               </div>
             </div>
           </template>
@@ -43,7 +49,7 @@
               no-caps
               label="Random"
               unelevated
-              @click="showAlert"
+              @click="$router.push({ name: 'ideas' })"
             />
             <q-btn
               :loading="isLoading"
