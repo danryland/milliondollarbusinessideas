@@ -4,15 +4,27 @@
       <h1 class="text-h4 q-mb-lg">Choose an idea</h1>
       <div class="note-holder">
         <div v-for="(idea, index) in ideas" :key="idea.id">
-          <q-card
-            v-if="index <= activeIdea"
-            :class="['note', 'note-' + (index + 1)]"
-            :style="{ zIndex: index }"
+          <transition
+            appear
+            :enter-active-class="
+              [
+                'animated slower bounceInLeft',
+                'animated slower bounceInDown',
+                'animated slower bounceInRight',
+                'animated slower bounceInUp',
+              ][Math.floor(Math.random() * 5)]
+            "
           >
-            <q-card-section>
-              <p>{{ idea.description }}</p>
-            </q-card-section>
-          </q-card>
+            <q-card
+              v-if="index <= activeIdea"
+              :class="['note', 'note-' + (index + 1), 'list-item']"
+              :style="{ zIndex: index }"
+            >
+              <q-card-section>
+                <p>{{ idea.description }}</p>
+              </q-card-section>
+            </q-card>
+          </transition>
         </div>
       </div>
     </div>
