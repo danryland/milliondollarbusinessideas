@@ -47,7 +47,7 @@
         color="grey-4"
         text-color="dark"
         unelevated
-        icon="fa-sharp fa-solid fa-sparkles"
+        icon="fa-sharp fa-regular fa-refresh"
         @click="showNextIdea()"
         :disable="activeIdea > getLength(ideas) - 1"
       />
