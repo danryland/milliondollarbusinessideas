@@ -34,10 +34,20 @@
       <q-btn
         size="lg"
         round
+        text-color="dark"
+        unelevated
+        icon="fa-sharp fa-regular fa-arrow-left"
+        @click="activeIdea = activeIdea - 1"
+        :disable="activeIdea === 0"
+      />
+
+      <q-btn
+        size="lg"
+        round
         color="grey-4"
         text-color="dark"
         unelevated
-        icon="fa-sharp fa-solid fa-refresh"
+        icon="fa-sharp fa-solid fa-sparkles"
         @click="showNextIdea()"
         :disable="activeIdea > getLength(ideas) - 1"
       />
