@@ -112,6 +112,7 @@ h1,
   font-size: 32px;
   line-height: 32px;
   box-shadow: 0px 4px 60px -20px rgba(0, 0, 0, 0.02);
+  transition: ease-in-out 0.3s all;
   @media (min-width: 1024px) {
     max-width: 400px;
     height: 400px;
@@ -124,56 +125,56 @@ h1,
   &.note-17,
   &.note-25 {
     background-color: #ffd92f;
-    transform: rotate(1deg);
+    rotate: 1deg;
   }
   &.note-2,
   &.note-10,
   &.note-18,
   &.note-26 {
     background-color: #48daf3;
-    transform: rotate(2deg);
+    rotate: 2deg;
   }
   &.note-3,
   &.note-11,
   &.note-19,
   &.note-27 {
     background-color: #61e39d;
-    transform: rotate(-1deg);
+    rotate: -1deg;
   }
   &.note-4,
   &.note-12,
   &.note-20,
   &.note-28 {
     background-color: #ffc15f;
-    transform: rotate(-2deg);
+    rotate: -2deg;
   }
   &.note-5,
   &.note-13,
   &.note-21,
   &.note-29 {
     background-color: #ffab9f;
-    transform: rotate(3deg);
+    rotate: 3deg;
   }
   &.note-6,
   &.note-14,
   &.note-22,
   &.note-30 {
     background-color: #66ccff;
-    transform: rotate(-3deg);
+    rotate: -3deg;
   }
   &.note-7,
   &.note-15,
   &.note-23,
   &.note-31 {
     background-color: #e0b6ff;
-    transform: rotate(1deg);
+    rotate: 1deg;
   }
   &.note-8,
   &.note-16,
   &.note-24,
   &.note-32 {
     background-color: #ffbaf5;
-    transform: rotate(-1deg);
+    rotate: -1deg;
   }
   .q-card__section {
     height: 100%;

@@ -12,7 +12,7 @@
                 'animated slower bounceInDown',
                 'animated slower bounceInRight',
                 'animated slower bounceInUp',
-              ][Math.floor(Math.random() * 5)]
+              ][Math.floor(Math.random() * 4)]
             "
           >
             <q-card
