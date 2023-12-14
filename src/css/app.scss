@@ -85,10 +85,16 @@ h1,
 
 .note {
   font-family: "Caveat";
-  max-width: 400px;
-  height: 400px;
-  font-size: 40px;
-  line-height: 40px;
+  max-width: 300px;
+  height: 300px;
+  font-size: 32px;
+  line-height: 32px;
+  @media (min-width: 1024px) {
+    max-width: 400px;
+    height: 400px;
+    font-size: 40px;
+    line-height: 40px;
+  }
   &.note-1 {
     background-color: #ffd92f;
     transform: rotate(1deg);

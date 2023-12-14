@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <div class="text-center q-pa-md flex column flex-center">
-      <h1 class="text-h3 q-mb-xl q-mt-none">Choose an idea</h1>
+      <h1 class="text-h4 q-mb-lg">Choose an idea</h1>
       <q-card :class="['note', 'note-' + Math.floor(Math.random() * 7 + 1)]">
         <q-card-section>
           <p>
