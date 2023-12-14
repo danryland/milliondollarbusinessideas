@@ -14,6 +14,14 @@
                 'animated slower bounceInUp',
               ][Math.floor(Math.random() * 4)]
             "
+            :leave-active-class="
+              [
+                'animated slow bounceOutLeft',
+                'animated slow bounceOutDown',
+                'animated slow bounceOutRight',
+                'animated slow bounceOutUp',
+              ][Math.floor(Math.random() * 4)]
+            "
           >
             <q-card
               v-if="index <= activeIdea"
