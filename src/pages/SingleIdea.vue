@@ -2,12 +2,12 @@
   <q-page v-if="idea" class="single-idea">
     <div class="hero text-center">
       <div class="container container-small">
-        <h1 class="text-h3 q-my-none">{{ idea.title }}</h1>
+        <h1 class="text-h4 q-my-none">{{ idea.title }}</h1>
       </div>
     </div>
     <div class="idea">
       <div class="container">
-        <h2 class="text-h4 text-center">The idea</h2>
+        <h2 class="text-h5 text-center">The idea</h2>
         <q-card :class="['note', randomNote]">
           <q-card-section>
             <p>{{ idea.description }}</p>
@@ -73,7 +73,7 @@
               color="white"
               text-color="dark"
               size="lg"
-              class="q-px-lg full-width"
+              class="q-pa-lg full-width"
             />
           </div>
           <div class="right">
@@ -116,7 +116,7 @@
               color="white"
               text-color="dark"
               size="lg"
-              class="q-px-lg full-width"
+              class="q-pa-lg full-width"
             />
           </div>
           <div class="right">

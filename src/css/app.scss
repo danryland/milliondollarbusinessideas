@@ -241,13 +241,14 @@ h3 {
     }
   }
   .left {
-    padding: 24px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex: 1 0 0;
     align-self: stretch;
     @media (min-width: 1024px) {
+      padding: 24px;
       p {
         display: flex;
         flex-direction: column;
@@ -288,9 +289,13 @@ h3 {
       margin: 0px 0px 16px 0px;
     }
     p {
-      font-size: 40px;
-      line-height: 36px;
+      font-size: 32px;
+      line-height: 32px;
       font-family: "Caveat";
+      @media (min-width: 768px) {
+        font-size: 40px;
+        line-height: 36px;
+      }
     }
   }
   .users {
@@ -440,6 +445,14 @@ h3 {
   font-size: 18px;
 }
 
+.q-btn {
+  line-height: 1.1em;
+}
+
 .text-subtitle1 {
   line-height: 22px;
+}
+
+.text-h4 {
+  line-height: 1em;
 }
