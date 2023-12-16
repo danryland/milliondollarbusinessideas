@@ -263,6 +263,8 @@ h3 {
     align-items: center;
     flex: 1 0 0;
     align-self: stretch;
+    position: relative;
+    overflow: hidden;
   }
 
   .section {
@@ -303,6 +305,21 @@ h3 {
     .q-btn {
       box-shadow: 3px 3px 0px 0px #ff0048, -3px -3px 0px 0px #00f7ef;
     }
+    .triangle-left {
+      border-color: transparent transparent transparent darken(#242424, 2%);
+    }
+
+    .triangle-right {
+      border-color: transparent darken(#242424, 3%) transparent transparent;
+    }
+
+    .triangle-top {
+      border-color: darken(#242424, 1%) transparent transparent transparent;
+    }
+
+    .triangle-bottom {
+      border-color: transparent transparent darken(#242424, 4%) transparent;
+    }
   }
   .million {
     background-color: #eeefc9;
@@ -313,7 +330,110 @@ h3 {
       background: rgba(#009349, 0.8);
       color: white;
     }
+    .triangle-left {
+      border-color: transparent transparent transparent darken(#009349, 2%);
+    }
+
+    .triangle-right {
+      border-color: transparent darken(#009349, 3%) transparent transparent;
+    }
+
+    .triangle-top {
+      border-color: darken(#009349, 1%) transparent transparent transparent;
+    }
+
+    .triangle-bottom {
+      border-color: transparent transparent darken(#009349, 4%) transparent;
+    }
   }
+}
+
+.triangles {
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  overflow: hidden;
+  * {
+    transition: all 0.3s ease-in-out;
+  }
+  &-open {
+    .triangle-top {
+      top: -100%;
+    }
+    .triangle-left {
+      left: -100%;
+    }
+    .triangle-right {
+      right: -100%;
+    }
+    .triangle-bottom {
+      bottom: -100%;
+    }
+  }
+}
+
+.triangle-left {
+  top: 0px;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 512px 0 512px 512px;
+  border-color: transparent transparent transparent darken(#0073ba, 2%);
+  transform: rotate(0deg);
+  top: 50%;
+  left: 50%;
+  margin-left: -512px;
+  margin-top: -512px;
+}
+
+.triangle-right {
+  right: 0px;
+  top: 0px;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 512px 512px 512px 0;
+  border-color: transparent darken(#0073ba, 3%) transparent transparent;
+  transform: rotate(0deg);
+  top: 50%;
+  right: 50%;
+  margin-right: -512px;
+  margin-top: -512px;
+}
+
+.triangle-top {
+  position: absolute;
+  top: 0px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 512px 512px 0 512px;
+  border-color: darken(#0073ba, 1%) transparent transparent transparent;
+  transform: rotate(0deg);
+  top: 50%;
+  left: 50%;
+  margin-left: -512px;
+  margin-top: -512px;
+}
+
+.triangle-bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 512px 512px 512px;
+  border-color: transparent transparent darken(#0073ba, 4%) transparent;
+  transform: rotate(0deg);
+  bottom: 50%;
+  left: 50%;
+  margin-left: -512px;
+  margin-bottom: -512px;
 }
 
 .q-icon.fa-size {

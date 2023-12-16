@@ -34,6 +34,12 @@
             />
           </div>
           <div class="right">
+            <div class="triangles">
+              <div class="triangle-top"></div>
+              <div class="triangle-left"></div>
+              <div class="triangle-right"></div>
+              <div class="triangle-bottom"></div>
+            </div>
             <q-img
               alt="Image of the prototype"
               src="https://placehold.co/1024x1024"
@@ -62,6 +68,12 @@
             />
           </div>
           <div class="right">
+            <div class="triangles">
+              <div class="triangle-top"></div>
+              <div class="triangle-left"></div>
+              <div class="triangle-right"></div>
+              <div class="triangle-bottom"></div>
+            </div>
             <q-img
               alt="Image of your first users"
               src="https://placehold.co/1024x1024"
@@ -90,6 +102,12 @@
             />
           </div>
           <div class="right">
+            <div class="triangles">
+              <div class="triangle-top"></div>
+              <div class="triangle-left"></div>
+              <div class="triangle-right"></div>
+              <div class="triangle-bottom"></div>
+            </div>
             <q-img
               alt="Image of your first million"
               src="https://placehold.co/1024x1024"
