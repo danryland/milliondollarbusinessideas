@@ -1,7 +1,13 @@
 <template>
   <q-page class="flex flex-center">
     <div class="text-center q-pa-md flex column flex-center">
-      <h1 class="text-h4 q-mb-lg">Choose an idea</h1>
+      <div class="q-mb-lg">
+        <h1 class="text-h4 q-mb-sm">Choose an idea</h1>
+        <p class="text-subtitle1 text-grey-7">
+          Here's <strong>{{ ideas.length }} ideas</strong> of our
+          {{ totalIdeas }} to get you started
+        </p>
+      </div>
       <div class="note-holder">
         <div v-for="(idea, index) in ideas" :key="idea.id">
           <transition
@@ -25,7 +31,7 @@
           >
             <q-card
               v-if="index <= activeIdea"
-              :class="['note', 'note-' + (index + 1), 'list-item']"
+              :class="['note', 'note-' + (index + 1)]"
               :style="{ zIndex: index }"
               @click="
                 $router.push({
@@ -102,6 +108,19 @@ export default {
     const isLoading = ref(false);
     const ideas = ref([]);
     const activeIdea = ref(0);
+    const totalIdeas = ref(1);
+
+    const getTotalIdeas = async () => {
+      const { data: totalIdeasData, error } = await supabase
+        .from("ideas")
+        .select("count");
+
+      if (error) {
+        console.log("Error fetching total ideas:", error);
+      }
+
+      totalIdeas.value = totalIdeasData[0]["count"];
+    };
 
     const getIdeas = async () => {
       isLoading.value = true;
@@ -139,7 +158,10 @@ export default {
       return 0;
     };
 
-    onMounted(getIdeas);
+    onMounted(async () => {
+      await getTotalIdeas();
+      await getIdeas();
+    });
 
     return {
       isLoading,
@@ -149,6 +171,7 @@ export default {
       activeIdea,
       showNextIdea,
       getLength,
+      totalIdeas,
     };
   },
 };

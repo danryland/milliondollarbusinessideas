@@ -6,8 +6,13 @@ body {
 }
 
 h1,
+h2,
 .q-btn {
   font-family: "Syne", sans-serif;
+}
+
+h3 {
+  font-family: "IBM Plex Mono", monospace;
 }
 
 .q-header {
@@ -110,14 +115,15 @@ h1,
   max-width: 300px;
   height: 300px;
   font-size: 32px;
-  line-height: 32px;
+  line-height: 28px;
   box-shadow: 0px 4px 60px -20px rgba(0, 0, 0, 0.02);
   transition: ease-in-out 0.3s all;
+  text-align: center;
   @media (min-width: 1024px) {
     max-width: 400px;
     height: 400px;
     font-size: 40px;
-    line-height: 40px;
+    line-height: 36px;
     margin-left: -200px;
   }
   &.note-1,
@@ -181,4 +187,135 @@ h1,
     display: flex;
     align-items: center;
   }
+}
+
+.single-idea {
+  .container {
+    max-width: 1024px;
+    margin: 0px auto;
+    padding: 0px 16px;
+    &-small {
+      max-width: 800px;
+    }
+  }
+  .hero {
+    padding: 40px 0px;
+    text-align: center;
+    @media (min-width: 768px) {
+      padding: 80px 0px;
+    }
+  }
+  .idea {
+    margin-bottom: 40px;
+    @media (min-width: 768px) {
+      margin-bottom: 80px;
+    }
+  }
+  .note {
+    position: relative;
+  }
+  .mvp {
+    background-color: #0073ba;
+    background-size: 24px 24px;
+    background-image: linear-gradient(
+        to right,
+        rgba(white, 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(white, 0.05) 1px, transparent 1px);
+    .box {
+      border: 1px solid rgba(white, 0.5);
+    }
+  }
+  .box {
+    @media (min-width: 1024px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      .left,
+      .right {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  .left {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+    @media (min-width: 1024px) {
+      p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 0 0;
+        align-self: stretch;
+      }
+    }
+  }
+  .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+
+  .section {
+    //margin: 40px 0px;
+    padding: 40px 8px;
+    color: white;
+    @media (min-width: 768px) {
+      //margin: 80px 0px;
+      padding: 80px 8px;
+    }
+    h2 {
+      font-size: 40px;
+      line-height: 40px;
+      text-align: center;
+      margin: 0px 0px 32px 0px;
+    }
+    h3 {
+      font-size: 18px;
+      line-height: 18px;
+      opacity: 0.8;
+      margin: 0px 0px 16px 0px;
+    }
+    p {
+      font-size: 40px;
+      line-height: 36px;
+      font-family: "Caveat";
+    }
+  }
+  .users {
+    background-color: #111;
+    color: white;
+    h2 {
+      text-shadow: 2px 2px 0px #ff0048, -2px -2px 0px #00f7ef;
+    }
+    .left {
+      background-color: rgba(white, 0.08);
+    }
+    .q-btn {
+      box-shadow: 3px 3px 0px 0px #ff0048, -3px -3px 0px 0px #00f7ef;
+    }
+  }
+  .million {
+    background-color: #eeefc9;
+    h2 span {
+      color: #009349 !important;
+    }
+    .box {
+      background: rgba(#009349, 0.8);
+      color: white;
+    }
+  }
+}
+
+.q-icon.fa-size {
+  font-size: 18px;
 }
