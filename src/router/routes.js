@@ -9,6 +9,12 @@ const routes = [
         name: "ideas",
         component: () => import("pages/IdeasPage.vue"),
       },
+      {
+        path: "idea/:id-:slug",
+        name: "idea",
+        component: () => import("pages/SingleIdea.vue"),
+        props: true,
+      },
     ],
   },
 

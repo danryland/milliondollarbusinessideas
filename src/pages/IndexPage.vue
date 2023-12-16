@@ -17,7 +17,7 @@
           placeholder="Your interest"
         >
           <template v-slot:append>
-            <div v-if="input">
+            <div v-if="input && !isLoading">
               <div v-if="isDirty">
                 <q-icon
                   class="custom-icon"
@@ -61,7 +61,7 @@
               no-caps
               label="Bespoke"
               unelevated
-              :disable="input && isDirty"
+              :disable="!input || (input && isDirty)"
               @click="showAlert"
             />
           </div>
@@ -103,13 +103,18 @@ export default {
     const classifyInput = async (value) => {
       isDirty.value = false;
       isLoading.value = true;
-      let classifier = await pipeline(
-        "text-classification",
-        "Xenova/toxic-bert"
-      );
-      let results = await classifier(value, { topk: null });
-      isDirty.value = results.some((result) => result.score > 0.5);
-      isLoading.value = false;
+      try {
+        let classifier = await pipeline(
+          "text-classification",
+          "Xenova/toxic-bert"
+        );
+        let results = await classifier(value, { topk: null });
+        isDirty.value = results.some((result) => result.score > 0.5);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        isLoading.value = false;
+      }
     };
 
     watch(input, (value) => {
