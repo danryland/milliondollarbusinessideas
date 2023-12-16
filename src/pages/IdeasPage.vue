@@ -115,8 +115,6 @@ export default {
         return;
       }
 
-      console.log(ideasData);
-
       ideas.value = ideasData;
 
       isLoading.value = false;
