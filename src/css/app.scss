@@ -357,7 +357,7 @@ h3 {
   bottom: 0px;
   overflow: hidden;
   * {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.6s ease-in-out;
   }
   &-open {
     .triangle-top {
@@ -438,4 +438,8 @@ h3 {
 
 .q-icon.fa-size {
   font-size: 18px;
+}
+
+.text-subtitle1 {
+  line-height: 22px;
 }

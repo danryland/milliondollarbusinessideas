@@ -3,9 +3,12 @@
     <div class="text-center q-pa-md flex column flex-center">
       <div class="q-mb-lg">
         <h1 class="text-h4 q-mb-sm">Choose an idea</h1>
-        <p class="text-subtitle1 text-grey-7">
-          Here's <strong>{{ ideas.length }} ideas</strong> of our
-          {{ totalIdeas }} to get you started
+        <p class="text-subtitle1 text-grey-7" v-if="ideas.length">
+          From our
+          <strong>{{ totalIdeas }} <i>million dollar ideas</i></strong
+          >,<br />here's
+          <strong>{{ activeIdea + 1 }} of {{ ideas.length }}</strong> to get
+          your started:
         </p>
       </div>
       <div class="note-holder">

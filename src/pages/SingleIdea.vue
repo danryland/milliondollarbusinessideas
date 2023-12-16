@@ -25,7 +25,7 @@
             <q-btn
               :disable="isBuilding"
               :loading="isBuilding"
-              @click="showAlert"
+              @click="generateMvpImage()"
               icon="fa-solid fa-hammer fa-size"
               label="Build it"
               outline
@@ -34,13 +34,22 @@
             />
           </div>
           <div class="right">
-            <div class="triangles">
+            <div
+              class="triangles"
+              :class="{ 'triangles-open': mvpImage && !isBuilding }"
+            >
               <div class="triangle-top"></div>
               <div class="triangle-left"></div>
               <div class="triangle-right"></div>
               <div class="triangle-bottom"></div>
             </div>
             <q-img
+              v-if="mvpImage"
+              alt="Image of the prototype"
+              :src="mvpImage"
+            />
+            <q-img
+              v-else
               alt="Image of the prototype"
               src="https://placehold.co/1024x1024"
             />
@@ -56,9 +65,9 @@
             <h3>First 10 users</h3>
             <p>{{ idea.first_users }}</p>
             <q-btn
-              :disable="isMarketing"
-              :loading="isMarketing"
-              @click="showAlert"
+              :disable="isVisualising"
+              :loading="isVisualising"
+              @click="generateUsersImage()"
               icon="fa-solid fa-crystal-ball fa-size"
               label="Visualise my users"
               color="white"
@@ -68,14 +77,23 @@
             />
           </div>
           <div class="right">
-            <div class="triangles">
+            <div
+              class="triangles"
+              :class="{ 'triangles-open': usersImage && !isVisualising }"
+            >
               <div class="triangle-top"></div>
               <div class="triangle-left"></div>
               <div class="triangle-right"></div>
               <div class="triangle-bottom"></div>
             </div>
             <q-img
-              alt="Image of your first users"
+              v-if="usersImage"
+              alt="Image of your users"
+              :src="usersImage"
+            />
+            <q-img
+              v-else
+              alt="Image of your users"
               src="https://placehold.co/1024x1024"
             />
           </div>
@@ -90,9 +108,9 @@
             <h3>First million</h3>
             <p>{{ idea.first_million }}</p>
             <q-btn
-              :disable="isMarketing"
-              :loading="isMarketing"
-              @click="showAlert"
+              :disable="isMoneyMaking"
+              :loading="isMoneyMaking"
+              @click="generateMillionsImage()"
               icon="fa-solid fa-sack-dollar fa-size"
               label="Show me the money"
               color="white"
@@ -102,14 +120,23 @@
             />
           </div>
           <div class="right">
-            <div class="triangles">
+            <div
+              class="triangles"
+              :class="{ 'triangles-open': millionsImage && !isMoneyMaking }"
+            >
               <div class="triangle-top"></div>
               <div class="triangle-left"></div>
               <div class="triangle-right"></div>
               <div class="triangle-bottom"></div>
             </div>
             <q-img
-              alt="Image of your first million"
+              v-if="millionsImage"
+              alt="Image of your millions"
+              :src="millionsImage"
+            />
+            <q-img
+              v-else
+              alt="Image of your millions"
               src="https://placehold.co/1024x1024"
             />
           </div>
@@ -120,6 +147,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { ref, onMounted } from "vue";
 import supabase from "../supabase";
 
@@ -138,7 +166,12 @@ export default {
   setup(props) {
     const idea = ref(null);
     const randomNote = ref("");
+    const mvpImage = ref("");
+    const usersImage = ref("");
+    const millionsImage = ref("");
     const isBuilding = ref(false);
+    const isVisualising = ref(false);
+    const isMoneyMaking = ref(false);
 
     const showAlert = () => {
       window.alert("Coming soon");
@@ -147,6 +180,58 @@ export default {
     const generateRandomNote = () => {
       let number = Math.floor(Math.random() * 8) + 1;
       randomNote.value = `note-${number}`;
+    };
+
+    const generateImage = async (prompt) => {
+      let data = JSON.stringify({
+        model: "dall-e-3",
+        prompt: prompt,
+        n: 1,
+        size: "1024x1024",
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "https://api.openai.com/v1/images/generations",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPEN_API}`,
+        },
+        data: data,
+      };
+
+      try {
+        const response = await axios.request(config);
+        //console.log(response.data.data[0].url);
+        return response.data.data[0].url;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const generateMvpImage = async () => {
+      isBuilding.value = true;
+      mvpImage.value = await generateImage(
+        `a prototype of the following: ${idea.value.mvp}`
+      );
+      isBuilding.value = false;
+    };
+
+    const generateUsersImage = async () => {
+      isVisualising.value = true;
+      usersImage.value = await generateImage(
+        `a persona of the following: ${idea.value.first_users} for the following idea: ${idea.value.title}`
+      );
+      isVisualising.value = false;
+    };
+
+    const generateMillionsImage = async () => {
+      isMoneyMaking.value = true;
+      millionsImage.value = await generateImage(
+        `a pile of money infront of a red wall with a large painting of: ${idea.value.mvp} in a gold frame`
+      );
+      isMoneyMaking.value = false;
     };
 
     onMounted(generateRandomNote);
@@ -169,7 +254,15 @@ export default {
       idea,
       randomNote,
       isBuilding,
+      isVisualising,
+      isMoneyMaking,
       showAlert,
+      generateMvpImage,
+      generateUsersImage,
+      generateMillionsImage,
+      mvpImage,
+      usersImage,
+      millionsImage,
     };
   },
 };
