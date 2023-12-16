@@ -30,7 +30,7 @@
               label="Build it"
               outline
               size="lg"
-              class="q-px-lg full-width"
+              class="q-pa-lg full-width"
             />
             <div class="q-mt-md full-width text-center">
               <small><i>Can take up to 10s to complete</i></small>
