@@ -32,6 +32,9 @@
               size="lg"
               class="q-px-lg full-width"
             />
+            <div class="q-mt-md full-width text-center">
+              <small><i>Can take up to 10s to complete</i></small>
+            </div>
           </div>
           <div class="right">
             <div
@@ -75,6 +78,9 @@
               size="lg"
               class="q-pa-lg full-width"
             />
+            <div class="q-mt-md full-width text-center">
+              <small><i>Can take up to 10s to complete</i></small>
+            </div>
           </div>
           <div class="right">
             <div
@@ -118,6 +124,9 @@
               size="lg"
               class="q-pa-lg full-width"
             />
+            <div class="q-mt-md full-width text-center">
+              <small><i>Can take up to 10s to complete</i></small>
+            </div>
           </div>
           <div class="right">
             <div
