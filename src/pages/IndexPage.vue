@@ -62,7 +62,9 @@
               label="Bespoke"
               unelevated
               :disable="!input || (input && isDirty)"
-              @click="showAlert"
+              @click="
+                $router.push({ name: 'ideas', query: { interest: input } })
+              "
             />
           </div>
         </div>

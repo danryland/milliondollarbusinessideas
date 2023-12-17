@@ -10,8 +10,22 @@
           <strong>{{ activeIdea + 1 }} of {{ ideas.length }}</strong> to get
           your started:
         </p>
+        <div v-if="interest">
+          From our
+          <strong>{{ totalIdeas }} <i>million dollar ideas</i></strong
+          >,<br />here's
+          <strong>{{ activeIdea }} of {{ ideas.length }}</strong> ideas linked
+          to <strong>{{ interest }}</strong>
+        </div>
       </div>
       <div class="note-holder">
+        <div v-if="interest">
+          <q-card class="note note-1">
+            <q-card-section>
+              <p>Coming soon</p>
+            </q-card-section>
+          </q-card>
+        </div>
         <div v-for="(idea, index) in ideas" :key="idea.id">
           <transition
             appear
@@ -104,6 +118,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import supabase from "../supabase";
+import { useRoute } from "vue-router";
 
 export default {
   name: "IdeasPage",
@@ -112,6 +127,8 @@ export default {
     const ideas = ref([]);
     const activeIdea = ref(0);
     const totalIdeas = ref(1);
+    const route = useRoute();
+    const interest = ref(null);
 
     const getTotalIdeas = async () => {
       const { data: totalIdeasData, error } = await supabase
@@ -163,7 +180,14 @@ export default {
 
     onMounted(async () => {
       await getTotalIdeas();
-      await getIdeas();
+      interest.value = route.query.interest;
+      console.log(route);
+      if (interest.value) {
+        console.log(interest);
+        //await generateCustomIdeas(interest);
+      } else {
+        await getIdeas();
+      }
     });
 
     return {
@@ -175,6 +199,7 @@ export default {
       showNextIdea,
       getLength,
       totalIdeas,
+      interest,
     };
   },
 };
