@@ -23,7 +23,7 @@
           <q-spinner size="32px" class="q-mb-md" />
           <p class="text-subtitle1 text-grey-7">
             <strong>Generating ideas...</strong><br /><small
-              >10-20s to complete. {{ duration }}s so far</small
+              >10-20s to complete. {{ duration }}s so far.</small
             >
           </p>
         </div>
@@ -39,83 +39,47 @@
             >
           </p>
         </div>
-        <div v-if="interest">
-          <div v-for="(idea, index) in ideas" :key="idea.id">
-            <transition
-              appear
-              :enter-active-class="
-                [
-                  'animated slower bounceInLeft',
-                  'animated slower bounceInDown',
-                  'animated slower bounceInRight',
-                  'animated slower bounceInUp',
-                ][Math.floor(Math.random() * 4)]
-              "
-              :leave-active-class="
-                [
-                  'animated slow bounceOutLeft',
-                  'animated slow bounceOutDown',
-                  'animated slow bounceOutRight',
-                  'animated slow bounceOutUp',
-                ][Math.floor(Math.random() * 4)]
-              "
-            >
-              <q-card
-                v-if="index <= activeIdea"
-                :class="['note', 'note-' + (index + 1)]"
-                :style="{ zIndex: index }"
-                @click="showAlert()"
-              >
-                <q-card-section>
-                  <p>{{ idea.description }}</p>
-                </q-card-section>
-              </q-card>
-            </transition>
-          </div>
-        </div>
-        <div v-else>
-          <div v-for="(idea, index) in ideas" :key="idea.id">
-            <transition
-              appear
-              :enter-active-class="
-                [
-                  'animated slower bounceInLeft',
-                  'animated slower bounceInDown',
-                  'animated slower bounceInRight',
-                  'animated slower bounceInUp',
-                ][Math.floor(Math.random() * 4)]
-              "
-              :leave-active-class="
-                [
-                  'animated slow bounceOutLeft',
-                  'animated slow bounceOutDown',
-                  'animated slow bounceOutRight',
-                  'animated slow bounceOutUp',
-                ][Math.floor(Math.random() * 4)]
+        <div v-for="(idea, index) in ideas" :key="idea.id">
+          <transition
+            appear
+            :enter-active-class="
+              [
+                'animated slower bounceInLeft',
+                'animated slower bounceInDown',
+                'animated slower bounceInRight',
+                'animated slower bounceInUp',
+              ][Math.floor(Math.random() * 4)]
+            "
+            :leave-active-class="
+              [
+                'animated slow bounceOutLeft',
+                'animated slow bounceOutDown',
+                'animated slow bounceOutRight',
+                'animated slow bounceOutUp',
+              ][Math.floor(Math.random() * 4)]
+            "
+          >
+            <q-card
+              v-if="index <= activeIdea"
+              :class="['note', 'note-' + (index + 1)]"
+              :style="{ zIndex: index }"
+              @click="
+                $router.push({
+                  name: 'idea',
+                  params: {
+                    id: idea.id,
+                    slug: idea.title
+                      .replace(/[^a-zA-Z0-9]/g, '-')
+                      .toLowerCase(),
+                  },
+                })
               "
             >
-              <q-card
-                v-if="index <= activeIdea"
-                :class="['note', 'note-' + (index + 1)]"
-                :style="{ zIndex: index }"
-                @click="
-                  $router.push({
-                    name: 'idea',
-                    params: {
-                      id: idea.id,
-                      slug: idea.title
-                        .replace(/[^a-zA-Z0-9]/g, '-')
-                        .toLowerCase(),
-                    },
-                  })
-                "
-              >
-                <q-card-section>
-                  <p>{{ idea.description }}</p>
-                </q-card-section>
-              </q-card>
-            </transition>
-          </div>
+              <q-card-section>
+                <p>{{ idea.description }}</p>
+              </q-card-section>
+            </q-card>
+          </transition>
         </div>
       </div>
     </div>
@@ -143,7 +107,6 @@
         :disable="activeIdea > getLength(ideas) - 1"
       />
       <q-btn
-        v-if="!interest"
         size="lg"
         round
         color="primary"
@@ -160,15 +123,6 @@
             },
           })
         "
-      />
-      <q-btn
-        v-if="interest"
-        size="lg"
-        round
-        color="primary"
-        text-color="dark"
-        icon="fa-sharp fa-solid fa-check"
-        @click="showAlert()"
       />
     </q-footer>
   </q-page>
@@ -258,10 +212,20 @@ export default {
           }
         );
 
-        console.log("Bespoke ideas: ", response.data);
-        ideas.value = response.data.ideas;
+        //console.log("Bespoke ideas from edge function: ", response.data);
 
-        if (response.data.ideas) {
+        try {
+          if (response.data.ideas) {
+            const { data, error } = await supabase
+              .from("ideas")
+              .insert(response.data.ideas)
+              .select();
+            if (!error && data) {
+              ideas.value = data;
+            }
+          }
+        } catch (error) {
+          console.error("Error inserting ideas into countries:", error);
         }
       } catch (error) {
         console.error("Error fetching custom ideas:", error);
