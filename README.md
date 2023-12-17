@@ -2,7 +2,7 @@
 
 ## Build in a weekend. Make millions.
 
-[![Supafactor: Pass](https://nipsfqhfvpgclfjnctna.supabase.co/functions/v1/badge?userName=danryland&repo=supafactor)](https://supafactor.netlify.app/)
+[![Supafactor: Pass](https://nipsfqhfvpgclfjnctna.supabase.co/functions/v1/badge?userName=danryland&repo=milliondollarbusinessideas)](https://supafactor.netlify.app/)
 
 [PLAY: Try Supafactor for yourself](https://milliondollarbusinessideas.com)
 
