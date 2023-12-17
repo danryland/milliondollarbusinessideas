@@ -3,11 +3,13 @@
 // This enables autocomplete, go to definition, etc.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import OpenAI from "https://deno.land/x/openai@v4.22.1/mod.ts";
+import { Configuration, OpenAIApi } from "https://esm.sh/openai@3.2.1";
 
-const openai = new OpenAI({
+const configuration = new Configuration({
   apiKey: Deno.env.get("OPEN_API"),
 });
+
+const openai = new OpenAIApi(configuration);
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -19,6 +21,8 @@ serve(async (req) => {
       },
     });
   }
+
+  console.log("Config: ", configuration);
 
   // let config = {
   //   method: 'get',
@@ -39,42 +43,42 @@ serve(async (req) => {
   //   console.log(error);
   // });
 
-  // try {
-  //   const requestBody = await req.json();
+  try {
+    const requestBody = await req.json();
 
-  //   const systemPrompt = `Get me 5 million dollar business ideas using the following json format: title, description, mvp, first_users and first_million`;
-  //   const userPrompt = ``;
+    const systemPrompt = `Get me 5 million dollar business ideas using the following json format: title, description, mvp, first_users and first_million`;
+    const userPrompt = ``;
 
-  //   const response = await openai.chat.completions.create({
-  //     model: "gpt-4-1106-preview",
-  //     messages: [
-  //       { role: "system", content: systemPrompt },
-  //       { role: "user", content: userPrompt },
-  //     ],
-  //     max_tokens: 500,
-  //   });
+    const response = await openai.createChatCompletion({
+      model: "gpt-4-1106-preview",
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+      max_tokens: 500,
+    });
 
-  //   const {
-  //     data: {
-  //       choices: [{ message }],
-  //     },
-  //   } = response;
+    const {
+      data: {
+        choices: [{ message }],
+      },
+    } = response;
 
-  //   return new Response(message?.content, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Access-Control-Allow-Methods": "POST",
-  //       "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  //     },
-  //   });
-  // } catch (error) {
-  //   console.error("Error in function:", error);
-  //   return new Response(JSON.stringify({ error: "An error occurred" }), {
-  //     headers: { "Content-Type": "application/json" },
-  //     status: 500,
-  //   });
-  // }
+    return new Response(message?.content, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
+  } catch (error) {
+    console.error("Error in function:", error);
+    return new Response(JSON.stringify({ error: "An error occurred" }), {
+      headers: { "Content-Type": "application/json" },
+      status: 500,
+    });
+  }
 });
 
 // To invoke:
