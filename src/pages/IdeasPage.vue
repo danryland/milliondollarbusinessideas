@@ -19,11 +19,23 @@
         </p>
       </div>
       <div class="note-holder">
-        <div v-if="!ideas.length">
+        <div v-if="!ideas.length && isLoading">
           <q-spinner size="32px" class="q-mb-md" />
           <p class="text-subtitle1 text-grey-7">
             <strong>Generating ideas...</strong><br /><small
               >This can take up 10-20s to complete</small
+            >
+          </p>
+        </div>
+        <div v-if="!ideas.length && hasError && !isLoading">
+          <q-icon
+            name="fa-regular fa-face-anxious-sweat"
+            size="32px"
+            class="q-mb-sm text-red-5"
+          />
+          <p class="text-subtitle1 text-grey-7">
+            <strong>Oops...</strong><br /><small
+              >We hit a problem - Try reloading</small
             >
           </p>
         </div>
@@ -177,6 +189,7 @@ export default {
     const totalIdeas = ref(1);
     const route = useRoute();
     const interest = ref(null);
+    const hasError = ref(false);
 
     const getTotalIdeas = async () => {
       const { data: totalIdeasData, error } = await supabase
@@ -246,6 +259,7 @@ export default {
         console.log("Bespoke ideas: ", ideas.value);
       } catch (error) {
         console.error("Error fetching custom ideas:", error);
+        hasError.value = true;
       } finally {
         isLoading.value = false;
       }
@@ -273,6 +287,7 @@ export default {
       getLength,
       totalIdeas,
       interest,
+      hasError,
     };
   },
 };
