@@ -28,7 +28,7 @@ serve(async (req) => {
 
     const userInterest = requestBody.interest;
 
-    console.log("Interest: ", userInterest);
+    //åconsole.log("Interest: ", userInterest);
 
     const braveSearchResponse = await fetch(
       `https://api.search.brave.com/res/v1/news/search?q=${userInterest}`,
@@ -46,29 +46,32 @@ serve(async (req) => {
       };
     });
 
-    console.log("News: ", newsArray);
+    //console.log("News: ", newsArray);
 
-    const systemPrompt = `Based on the user's interest and search results, give me 5 "million dollar business ideas" that follow the following pattern: Title, Description, MVP, Get first 10 users, Get first million. Give the response in pure JSON, not wrapped in markdown, so it can be reused:
-    [{
-      "title": "",
-      "description": "",
-      "mvp": "",
-      "first_users": "",
-      "first_million": "",
-    }]`;
+    const systemPrompt = `Based on the user's interest and search results, give me 5 "million dollar business ideas" that follow the following pattern: Title, short description, MVP, Get first 10 users, Get first million. Generate the response in a JSON array of objects:
+    {
+      "ideas": [{
+        "title": "",
+        "description": "",
+        "mvp": "",
+        "first_users": "",
+        "first_million": "",
+      }]
+    }`;
     const userPrompt = `Interest: ${userInterest}
     Search results: ${JSON.stringify(newsArray, null, 2)}`;
 
-    console.log("system: ", systemPrompt);
-    console.log("user: ", userPrompt);
+    //console.log("system: ", systemPrompt);
+    //console.log("user: ", userPrompt);
 
     const response = await openai.createChatCompletion({
-      model: "gpt-4-1106-preview",
+      model: "gpt-3.5-turbo-1106",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      max_tokens: 2000,
+      max_tokens: 1000,
+      response_format: { type: "json_object" },
     });
 
     const {

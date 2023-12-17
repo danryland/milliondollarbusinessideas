@@ -23,7 +23,7 @@
           <q-spinner size="32px" class="q-mb-md" />
           <p class="text-subtitle1 text-grey-7">
             <strong>Generating ideas...</strong><br /><small
-              >This can take up 10-20s to complete</small
+              >10-20s to complete. {{ duration }}s so far</small
             >
           </p>
         </div>
@@ -190,6 +190,7 @@ export default {
     const route = useRoute();
     const interest = ref(null);
     const hasError = ref(false);
+    const duration = ref(0);
 
     const getTotalIdeas = async () => {
       const { data: totalIdeasData, error } = await supabase
@@ -241,6 +242,10 @@ export default {
 
     const generateCustomIdeas = async (interestValue) => {
       isLoading.value = true;
+      duration.value = 0;
+      const intervalId = setInterval(() => {
+        duration.value += 1;
+      }, 1000);
       try {
         const response = await axios.post(
           `${process.env.SUPABASE_FUNCTION}/bespoke-idea`,
@@ -253,24 +258,26 @@ export default {
           }
         );
 
-        ideas.value = JSON.parse(
-          response.data.replace("```json", "").replace("```", "").trim()
-        );
-        console.log("Bespoke ideas: ", ideas.value);
+        console.log("Bespoke ideas: ", response.data);
+        ideas.value = response.data.ideas;
+
+        if (response.data.ideas) {
+        }
       } catch (error) {
         console.error("Error fetching custom ideas:", error);
         hasError.value = true;
       } finally {
         isLoading.value = false;
+        clearInterval(intervalId);
       }
     };
 
     onMounted(async () => {
       await getTotalIdeas();
       interest.value = route.query.interest;
-      console.log(route);
+      //console.log(route);
       if (interest.value) {
-        console.log(interest);
+        //console.log(interest);
         await generateCustomIdeas(interest);
       } else {
         await getIdeas();
@@ -288,6 +295,7 @@ export default {
       totalIdeas,
       interest,
       hasError,
+      duration,
     };
   },
 };
