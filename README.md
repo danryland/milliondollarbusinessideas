@@ -122,3 +122,11 @@ Publish directory:
 ```bash
 dist/spa
 ```
+
+## Icons
+
+#### Favicon
+
+```bash
+icongenie generate -i src/assets/img/icon-million-dollar-business-ideas.png --quality 12 --skip-trim
+```

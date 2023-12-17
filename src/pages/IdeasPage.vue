@@ -23,7 +23,7 @@
           <q-spinner size="32px" class="q-mb-md" />
           <p class="text-subtitle1 text-grey-7">
             <strong>Generating ideas...</strong><br /><small
-              >10-20s to complete. {{ duration }}s so far.</small
+              >~20s to complete. {{ duration }}s so far.</small
             >
           </p>
         </div>

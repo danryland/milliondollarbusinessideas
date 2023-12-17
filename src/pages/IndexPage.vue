@@ -113,7 +113,7 @@ export default {
         let results = await classifier(value, { topk: null });
         isDirty.value = results.some((result) => result.score > 0.5);
       } catch (error) {
-        console.error(error);
+        //console.error(error);
       } finally {
         isLoading.value = false;
       }
