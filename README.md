@@ -4,17 +4,35 @@
 
 [![Supafactor: Pass](https://nipsfqhfvpgclfjnctna.supabase.co/functions/v1/badge?userName=danryland&repo=milliondollarbusinessideas)](https://supafactor.netlify.app/)
 
-[PLAY: Try Supafactor for yourself](https://milliondollarbusinessideas.com)
+[GET: Million dollar business ideas](https://milliondollarbusinessideas.com)
 
 [WATCH: Watch a demo TODO](https://www.loom.com/)
 
 ![Million Dollar Business Ideas](./src/assets/img/cover-1.jpg)
 
-Hi there, I’m Dan Ryland ([@RealDanRyland](https://twitter.com/realdanryland)). You may remember me from... TODO
+Hi there, I’m Dan Ryland ([@RealDanRyland](https://twitter.com/realdanryland)). You may remember me from such hackathon entries as 🥇 WINNER: _[Supafactor: Does your README have it?](https://supafactor.netlify.app/)_ and 🥈 Runner up: _[Groove AI: AI Generated Drum Patterns](https://groove-ai.netlify.app/)_.
+
+What have I build this time round?
+
+**A million dollar business idea generator.**
+
+Presenting [mulliondollarbusinessideas.com](https://milliondollarbusinessidea.com), where you can build in a weekend AND make millions.
 
 ## How does it work?
 
-TODO
+I seeded the database with 611 _million dollar business ideas_. Each idea consists of a title, description, a suggested MVP or first prototype, suggestions on how to get your first 10 users and finally, the big one - how to make your first million.
+
+Taking inspiration from Y Combinator's '[Request for Startups](https://www.ycombinator.com/rfs)', I asked GPT-4 to suggest some typical search queries that would go along with these theme descriptions.
+
+Taking each search query, I used Brave Search API to provide current and related news articles matching the search query.
+
+Returning to GPT-4 I then asked it to merge the initial YC theme, the search results from Brave and generate 10 related million dollar business ideas following my format.
+
+To automate further, I used [Zapier](https://zapier.com/) to loop through the remainder YC themes, generate search queries then run together to get the ideas.
+
+Within the web application you can either get a bespoke list of ideas matching an interest or you can pick 20 random ideas from the database.
+
+Once you've selected your idea, you can read the full blueprint on making your first million including generating matching images using DALLE-3.
 
 ## Supabase features
 
@@ -24,15 +42,13 @@ The following Supabase features are being used:
   - Fetch
   - Upsert
 - Edge function
-  - Open AI (GPT 4)
+  - Open AI (gpt-4-1106-preview)
   - Brave Search API
 
 ## Design process
 
-TODO
-
 - [Figma](https://www.figma.com/) for prototyping and designing assets
-- [DALL-E 3](#) for images
+- [DALL-E 3](#) for contextual images within the business idea blueprint
 
 ## Build process
 
@@ -85,12 +101,24 @@ yarn format
 npm run format
 ```
 
-### Build the app for production
+### Deploy
+
+Deploy the Supabase edge function:
+
+```bash
+supabase functions deploy bespoke-idea
+```
+
+Hosted on [Cloudflare](https://www.cloudflare.com/)
+
+Build the app for production
 
 ```bash
 quasar build
 ```
 
-### Customize the configuration
+Publish directory:
 
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+```bash
+dist/spa
+```
