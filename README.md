@@ -16,7 +16,7 @@ What have I build this time round?
 
 **A million dollar business idea generator.**
 
-Presenting [mulliondollarbusinessideas.com](https://milliondollarbusinessidea.com), where you can build in a weekend AND make millions.
+Presenting [milliondollarbusinessideas.com](https://milliondollarbusinessidea.com), where you can build in a weekend AND make millions.
 
 ## How does it work?
 
