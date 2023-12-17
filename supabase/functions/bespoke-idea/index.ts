@@ -2,6 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
+import "https://deno.land/x/xhr@0.3.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { Configuration, OpenAIApi } from "https://esm.sh/openai@3.2.1";
 
@@ -22,32 +23,44 @@ serve(async (req) => {
     });
   }
 
-  console.log("Config: ", configuration);
-
-  // let config = {
-  //   method: 'get',
-  //   maxBodyLength: Infinity,
-  //   url: 'https://api.search.brave.com/res/v1/news/search?q=',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Accept-Encoding': 'gzip',
-  //     'X-Subscription-Token': Deno.env.get("BRAVE_API")
-  //   }
-  // };
-
-  // axios.request(config)
-  // .then((response) => {
-  //   console.log(JSON.stringify(response.data));
-  // })
-  // .catch((error) => {
-  //   console.log(error);
-  // });
-
   try {
     const requestBody = await req.json();
 
-    const systemPrompt = `Get me 5 million dollar business ideas using the following json format: title, description, mvp, first_users and first_million`;
-    const userPrompt = ``;
+    const userInterest = requestBody.interest;
+
+    console.log("Interest: ", userInterest);
+
+    const braveSearchResponse = await fetch(
+      `https://api.search.brave.com/res/v1/news/search?q=${userInterest}`,
+      {
+        headers: {
+          "X-Subscription-Token": Deno.env.get("BRAVE_API"),
+        },
+      }
+    );
+    const newsData = await braveSearchResponse.json();
+    const newsArray = newsData.results.map((result) => {
+      return {
+        title: result.title,
+        description: result.description,
+      };
+    });
+
+    console.log("News: ", newsArray);
+
+    const systemPrompt = `Based on the user's interest and search results, give me 5 "million dollar business ideas" that follow the following pattern: Title, Description, MVP, Get first 10 users, Get first million. Give the response in pure JSON, not wrapped in markdown, so it can be reused:
+    [{
+      "title": "",
+      "description": "",
+      "mvp": "",
+      "first_users": "",
+      "first_million": "",
+    }]`;
+    const userPrompt = `Interest: ${userInterest}
+    Search results: ${JSON.stringify(newsArray, null, 2)}`;
+
+    console.log("system: ", systemPrompt);
+    console.log("user: ", userPrompt);
 
     const response = await openai.createChatCompletion({
       model: "gpt-4-1106-preview",
@@ -55,7 +68,7 @@ serve(async (req) => {
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      max_tokens: 500,
+      max_tokens: 2000,
     });
 
     const {
@@ -85,7 +98,7 @@ serve(async (req) => {
 // curl -i --location --request POST 'http://localhost:54321/functions/v1/bespoke-idea' \
 //   --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
 //   --header 'Content-Type: application/json' \
-//   --data '{"name":"Functions"}'
+//   --data '{"interest":"Celtic drumming"}'
 
 // API URL: http://localhost:54321
 // GraphQL URL: http://localhost:54321/graphql/v1
