@@ -6,7 +6,7 @@
 
 [GET: Million dollar business ideas](https://milliondollarbusinessideas.com)
 
-[WATCH: Watch a demo TODO](https://www.loom.com/)
+[WATCH: Watch a demo](https://www.loom.com/share/03894c57afce4b92b57da8bfb1bf5576)
 
 ![Million Dollar Business Ideas](./src/assets/img/cover-1.jpg)
 
