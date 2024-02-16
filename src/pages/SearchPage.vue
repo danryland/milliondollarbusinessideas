@@ -5,12 +5,13 @@
       :rows="data"
       :columns="columns"
       :pagination="pagination"
-      row-key="title"
-      grid
-      grid-header
-      hide-header
+      row-key="id"
+      :grid="true"
+      :grid-header="true"
+      :hide-header="true"
       :filter="filter"
       :title="`Search ${data.length} business ideas`"
+      @row-click="(evt, row, index) => navigateToIdea(evt, row, index)"
     >
       <template v-slot:top-right>
         <q-input
@@ -33,10 +34,12 @@
 <script>
 import { ref, onMounted } from "vue";
 import supabase from "../supabase";
+import { useRouter } from "vue-router";
 
 export default {
   name: "SearchPage",
   setup() {
+    const router = useRouter();
     const data = ref([]);
     const columns = ref([
       // {
@@ -52,6 +55,8 @@ export default {
         label: "Title",
         align: "left",
         field: "title",
+        sortable: true,
+        sortMethod: (a, b) => a.localeCompare(b),
       },
       {
         name: "description",
@@ -83,6 +88,17 @@ export default {
       },
     ]);
 
+    const navigateToIdea = (evt, idea, index) => {
+      const slug = idea.title.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+      router.push({
+        name: "idea",
+        params: {
+          id: idea.id,
+          slug: slug,
+        },
+      });
+    };
+
     onMounted(async () => {
       const { data: ideasData, error } = await supabase
         .from("ideas")
@@ -96,6 +112,7 @@ export default {
     });
 
     return {
+      navigateToIdea,
       data,
       columns,
       pagination: {
