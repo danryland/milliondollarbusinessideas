@@ -104,7 +104,7 @@
         unelevated
         icon="fa-sharp fa-regular fa-refresh"
         @click="showNextIdea()"
-        :disable="activeIdea > getLength(ideas) - 1"
+        :disable="activeIdea + 1 >= getLength(ideas)"
       />
       <q-btn
         size="lg"
