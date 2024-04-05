@@ -2,84 +2,36 @@
   <q-page class="flex flex-center">
     <div class="text-center q-pa-md">
       <h1 class="text-h1">
-        <span class="top">Build in a weekend</span><br /><span class="bottom"
-          >Make millions</span
-        >
+        <span class="top">Build in a weekend</span><br /><span class="bottom">Make millions</span>
       </h1>
       <q-form class="q-my-xl">
         <!-- <p class="text-h5 text-weight-bold">Start with an interest:</p> -->
-        <q-input
-          v-model="input"
-          debounce="1000"
-          standout
-          rounded
-          class="q-mb-lg"
-          placeholder="Your interest"
-        >
+        <q-input v-model="input" debounce="1000" standout rounded class="q-mb-lg" placeholder="Your interest">
           <template v-slot:append>
             <div v-if="input && !isLoading">
               <div v-if="isDirty">
-                <q-icon
-                  class="custom-icon"
-                  color="red-8"
-                  name="fa-regular fa-face-eyes-xmarks"
-                  size="24px"
-                />
+                <q-icon class="custom-icon" color="red-8" name="fa-regular fa-face-eyes-xmarks" size="24px" />
               </div>
               <div v-else>
-                <q-icon
-                  class="custom-icon"
-                  color="green"
-                  name="fa-solid fa-check"
-                  size="24px"
-                />
+                <q-icon class="custom-icon" color="green" name="fa-solid fa-check" size="24px" />
               </div>
             </div>
           </template>
         </q-input>
         <div class="flex flex-center">
           <div class="q-gutter-md">
-            <q-btn
-              size="xl"
-              color="primary"
-              outline
-              text-color="dark"
-              rounded
-              class="q-px-lg"
-              no-caps
-              label="Random"
-              unelevated
-              @click="$router.push({ name: 'ideas' })"
-            />
-            <q-btn
-              :loading="isLoading"
-              size="xl"
-              color="primary"
-              text-color="dark"
-              rounded
-              class="q-px-lg"
-              no-caps
-              label="Bespoke"
-              unelevated
-              :disable="!input || (input && isDirty)"
-              @click="
-                $router.push({ name: 'ideas', query: { interest: input } })
-              "
-            />
+            <q-btn size="xl" color="primary" outline text-color="dark" rounded class="q-px-lg" no-caps label="Random"
+              unelevated @click="$router.push({ name: 'ideas' })" />
+            <q-btn :loading="isLoading" size="xl" color="primary" text-color="dark" rounded class="q-px-lg" no-caps
+              label="Bespoke" unelevated :disable="!input || (input && isDirty)" @click="
+          $router.push({ name: 'ideas', query: { interest: input } })
+          " />
           </div>
         </div>
       </q-form>
       <p class="small">
-        An
-        <a
-          href="https://github.com/danryland/milliondollarbusinessideas"
-          target="_blank"
-          >open source</a
-        >
-        project by<br />
-        <a target="_blank" href="https://twitter.com/realdanryland"
-          >Dan Ryland</a
-        >, co-founder of
+        Project by
+        <a target="_blank" href="https://twitter.com/realdanryland">Dan Ryland</a>,<br> Co-founder of
         <a target="_blank" href="https://insidrmusic.com">Insidr&nbsp;Music</a>
       </p>
     </div>

@@ -3,22 +3,16 @@
     <q-header class="bg-white text-dark justify-between items-center">
       <div class="logo">
         <router-link to="/" replace>
-          <img
-            alt="Million Dollar Business Ideas"
-            src="~assets/img/logo-million-dollar-business-ideas.svg"
-          />
+          <img alt="Million Dollar Business Ideas" src="~assets/img/logo-million-dollar-business-ideas.svg" />
         </router-link>
       </div>
-      <div class="cta" v-if="$route.name !== 'search'">
-        <q-btn
-          size="sm"
-          outline
-          rounded
-          class="btn-padding"
-          label="Unlock all"
-          no-caps
-          @click="showModal = true"
-        ></q-btn>
+      <div class="cta">
+        <a href="https://milliondollarideas.gumroad.com/l/million-dollar-business-ideas" target="_blank">
+          <q-btn unelevated color="green" text-color="white" rounded class="btn-padding" no-caps>
+            <q-icon name="lock_open" size="1em" class="q-mr-sm" />
+            <span>Unlock all</span>
+          </q-btn>
+        </a>
       </div>
     </q-header>
 
@@ -35,16 +29,8 @@
 
         <q-card-actions align="right" class="q-pa-lg">
           <q-btn flat class="text-dark" no-caps label="Cancel" v-close-popup />
-          <q-btn
-            :disable="!userEmail"
-            color="primary"
-            text-color="dark"
-            no-caps
-            rounded
-            class="btn-padding"
-            label="Unlock"
-            @click="storeEmail()"
-          />
+          <q-btn :disable="!userEmail" color="primary" text-color="dark" no-caps rounded class="btn-padding"
+            label="Unlock" @click="storeEmail()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
